@@ -7,6 +7,7 @@ test('By Alt Locator', async ({page}) => {
  await logo.click();
  await page.waitForTimeout(3000);
  await expect(logo).toBeVisible(); // check image is visible
- 
+
+
 
 })
