@@ -5,7 +5,7 @@ test('Vote', async ({ page }) => {
 
   // Login flow
   await page.getByText('Log in').click();
-  await page.getByLabel('Email:').fill('jatinhari22@yahoo.com');
+  await page.getByLabel('Email:').fill('jatinhari13@yahoo.com');
   await page.getByLabel('Password:').fill('123456');
   await page.getByLabel('Remember me?').check();
   await page.getByRole('button', { name: 'Log in' }).click();
@@ -19,7 +19,7 @@ test('Vote', async ({ page }) => {
   console.log(text);
 
   // Vote action
-  await page.getByText('Very bad').click();
+  await page.getByText('Excellent').click();
   const voteButton = page.locator('#vote-poll-1');
 
   await voteButton.scrollIntoViewIfNeeded();
