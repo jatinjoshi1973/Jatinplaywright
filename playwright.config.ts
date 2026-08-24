@@ -30,7 +30,12 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    testIdAttribute:'id'
+    
+    // customized test id
+    testIdAttribute:'id',
+    
+    // Maximize the browser
+    viewport: null,
   },
 
   /* Configure projects for major browsers */

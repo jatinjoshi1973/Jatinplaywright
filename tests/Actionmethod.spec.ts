@@ -1,6 +1,6 @@
 import {test, expect, Locator} from "@playwright/test"
 
-test('Clear and Getattributes', async ({page}) => {
+test.only('Clear and Getattributes', async ({page}) => {
     await page.goto('https://demowebshop.tricentis.com/');
     await page.locator("input[value='Add to cart']").first().click(); 
     await page.waitForTimeout(2000);
@@ -24,7 +24,7 @@ test('Inpute value', async ({page}) => {
     
 });
 
-test.only('Check and Uncheck', async ({page}) => {
+test('Check and Uncheck', async ({page}) => {
     await page.goto('https://demowebshop.tricentis.com/');
     const excellent = await page.getByRole('radio', {name: 'Excellent'})
     excellent.check();

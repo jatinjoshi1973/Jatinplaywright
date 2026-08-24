@@ -3,7 +3,7 @@ import { test, expect, Locator } from "@playwright/test";
 test ('Dropdown', async ({page}) => {
 
     await page.goto('https://demowebshop.tricentis.com/');
-    await page.getByText('Books         ').first().click();
+    await page.getByRole('link', {name : 'Books'}).first().click();
     const sortDropdown = page.locator('#products-orderby');
     await sortDropdown.selectOption({ label: 'Price: Low to High' });
     await expect(sortDropdown).toHaveValue('https://demowebshop.tricentis.com/books?orderby=10');
