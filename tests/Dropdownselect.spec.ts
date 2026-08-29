@@ -14,6 +14,6 @@ test ('Dropdown', async ({page}) => {
     await page.waitForTimeout(4000);
     const productviewmode = page.locator('#products-viewmode');
     await productviewmode.selectOption({label : 'List'});
-    //await expect(productviewmode).toHaveValue('https://demowebshop.tricentis.com/books?orderby=10&viewmode=list&pagesize=4');
+    //await expect(productviewmode).toHaveValue('https://demowebshop.tricentis.com/books?viewmode=list');
     await page.waitForTimeout(4000);
 })
