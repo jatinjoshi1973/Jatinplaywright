@@ -35,7 +35,7 @@ test('scrolling', async({page})=>{
 
 })
 
-test.only('Drag and Drop', async({page})=>{
+test('Drag and Drop', async({page})=>{
 
     await page.goto('https://demo.automationtesting.in/Static.html');
     await page.waitForTimeout(2000);
@@ -55,3 +55,67 @@ test.only('Drag and Drop', async({page})=>{
 
 })
 
+test('QspidersDrag and Drop', async({page})=> {
+
+    await page.goto('https://demoapps.qspiders.com/ui/dragDrop?sublist=0&scenario=3');
+    await page.waitForTimeout(2000);
+    const qdrag:Locator = page.locator('.container-drag>div>section>div>div');
+    const qdrop:Locator = page.locator('.container-drag');
+    qdrag.dragTo(qdrop);
+    await page.waitForTimeout(3000)
+})
+
+test('Qspiders Drop', async({page})=> {
+
+    await page.goto('https://demoapps.qspiders.com/ui/dragDrop/dragToCorrect?sublist=2');
+    await page.waitForTimeout(2000);
+    await page.getByText('Mobile Charger').dragTo(page.getByText('Mobile Accessories'));
+    await page.getByText('Laptop Charger').dragTo(page.getByText('Laptop Accessories'));
+    await page.getByText('Mobile Cover').dragTo(page.getByText('Mobile Accessories'));
+    await page.getByText('Laptop Cover').dragTo(page.getByText('Laptop Accessories'));
+    await page.waitForTimeout(3000);
+})
+
+test.only('Qspiders Drag', async({page})=> {
+
+    await page.goto('https://demoapps.qspiders.com/ui/dragDrop/dragToMultiple?sublist=3');
+    await page.waitForTimeout(2000);
+
+     // Locate items
+    const mobileCharger = page.getByText('Mobile Charger', { exact: true });
+    const mobileCover = page.getByText('Mobile Cover', { exact: true });
+
+    // Select multiple items using Ctrl
+    await mobileCharger.click();
+    await page.keyboard.down('Control');
+    await mobileCover.click();
+    await page.keyboard.up('Control');
+
+    // Target
+    const mobileAccessories = page.getByText('Mobile Accessories', { exact: true });
+
+    // Drag selected items to target
+    await mobileCharger.hover();
+    await page.mouse.down();
+    await mobileAccessories.hover();
+    await page.mouse.up();
+    await page.waitForTimeout(3000);
+
+    //Laptop dropdown
+    const laptopcharger = page.getByText('Laptop Charger', {exact:true});
+    const laptopcover = page.getByText('Laptop Cover', {exact:true});
+    await laptopcharger.click();
+    await page.keyboard.down('Control');
+    await laptopcover.click();
+    await page.keyboard.up('Control');
+    const laptopaccessories = page.getByText('Laptop Accessories', {exact:true});
+    await laptopcharger.hover();
+    await page.mouse.down();
+    await laptopaccessories.hover();
+    await page.mouse.up();
+    await page.waitForTimeout(3000);
+
+
+
+});
+   
