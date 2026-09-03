@@ -76,7 +76,7 @@ test('Qspiders Drop', async({page})=> {
     await page.waitForTimeout(3000);
 })
 
-test.only('Qspiders Drag', async({page})=> {
+test('Qspiders Drag', async({page})=> {
 
     await page.goto('https://demoapps.qspiders.com/ui/dragDrop/dragToMultiple?sublist=3');
     await page.waitForTimeout(2000);
@@ -115,7 +115,69 @@ test.only('Qspiders Drag', async({page})=> {
     await page.mouse.up();
     await page.waitForTimeout(3000);
 
-
-
 });
-   
+
+test('Qmouse hover', async ({page}) => {
+
+    await page.goto('https://demoapps.qspiders.com/ui/mouseHover?sublist=0');
+    await page.waitForTimeout(2000)
+    await page.getByPlaceholder('Enter Password').hover();
+    await page.waitForTimeout(2000);
+    await page.getByPlaceholder('Enter Password').fill('123456');
+    await page.waitForTimeout(3000)
+    
+    
+})
+
+test('Qmouse hover tooltip', async ({page}) => {
+
+    await page.goto('https://demoapps.qspiders.com/ui/mouseHover/mouseHoverimage?sublist=1');
+    const Image:Locator = page.locator('.px-8.pt-8.rounded-xl >div>img');
+    await Image.hover();
+    await page.waitForTimeout(2000)  
+    const tooltip = await page.getByTitle('Order Placed Image', {exact:true}).getAttribute('title');
+    console.log(tooltip);
+    await page.waitForTimeout(3000);
+    
+    
+})
+
+test('Mousehover ratings', async ({page}) => {
+    await page.goto('https://demoapps.qspiders.com/ui/mouseHover/rating?sublist=2');
+    await page.waitForTimeout(3000)
+    const rating = page.locator('svg.Rating').nth(4);
+    await rating.hover();
+    await page.waitForTimeout(3000);
+})
+
+test('Mouse hover Tab', async({page})=>{
+
+    await page.goto('https://demoapps.qspiders.com/ui/mouseHover/tab?sublist=3');
+    await page.locator('.Men.p-4.relative').first().hover();
+    await page.getByText("Men's Top wear", { exact: true }).hover();
+    const tshirts = page.getByText("Men's T-Shirts", { exact: true });
+    await expect(tshirts).toBeVisible();
+    await tshirts.hover();
+
+   const discounts = page.getByText("Discounts", { exact: true }).first();
+   await expect(discounts).toBeVisible();
+   await discounts.hover();
+
+   const option = page.getByText("80% or more", { exact: true }).first();
+   await expect(option).toBeVisible();
+   await option.hover();
+   await page.waitForTimeout(3000);
+    
+})
+
+test.only('Mouse Click and hold', async({page})=>{
+
+    await page.goto('https://demoapps.qspiders.com/ui/clickHold?sublist=0');
+    await page.waitForTimeout(2000);
+    await page.locator('#circle').hover();
+    await page.mouse.down();
+    await page.waitForTimeout(3000);
+    await page.mouse.up();
+    await page.waitForTimeout(3000);
+    
+})
