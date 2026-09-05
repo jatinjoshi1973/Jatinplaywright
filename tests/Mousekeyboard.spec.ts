@@ -35,22 +35,27 @@ test('scrolling', async({page})=>{
 
 })
 
-test('Drag and Drop', async({page})=>{
+test.only('Drag and Drop', async({page})=>{
 
     await page.goto('https://demo.automationtesting.in/Static.html');
     await page.waitForTimeout(2000);
     // Single Drag and Drop
     const drag:Locator=page.getByTestId('mongo');
     const target:Locator=page.getByTestId('droparea');
+    await drag.hover();
+    await page.mouse.down();
+    await page.waitForTimeout(2000);
+    await target.hover();
+    await page.mouse.up();
     //drag.dragTo(target);
     //multiple drag and drop
-    const drags:Locator=page.locator('#dragarea>div>img');
-    let size=await drags.count();
-    console.log(size);
-    for (let i=0;i<size;i++){
-        drags.nth(i).dragTo(target);
-        await page.waitForTimeout(2000);
-    }
+    // const drags:Locator=page.locator('#dragarea>div>img');
+    // let size=await drags.count();
+    // console.log(size);
+    // for (let i=0;i<size;i++){
+    //     drags.nth(i).dragTo(target);
+    //     await page.waitForTimeout(2000);
+    //}
     await page.waitForTimeout(3000);
 
 })
@@ -170,7 +175,7 @@ test('Mouse hover Tab', async({page})=>{
     
 })
 
-test.only('Mouse Click and hold', async({page})=>{
+test('Mouse Click and hold', async({page})=>{
 
     await page.goto('https://demoapps.qspiders.com/ui/clickHold?sublist=0');
     await page.waitForTimeout(2000);
@@ -181,3 +186,22 @@ test.only('Mouse Click and hold', async({page})=>{
     await page.waitForTimeout(3000);
     
 })
+
+test('Shortcuts', async ({page}) => {
+ await page.goto('https://demowebshop.tricentis.com');
+ await page.waitForTimeout(2000);
+ await page.keyboard.down('Control');
+ await page.locator('.ico-register').click();
+ //await page.keyboard.up('Control');
+ await page.waitForTimeout(2000);
+ await page.keyboard.down('Shift');
+ await page.locator('.ico-register').click();
+ await page.waitForTimeout(2000);
+})
+
+test.only('Drag and Drop', async({page})=>{
+
+    await page.goto('https://demo.automationtesting.in/Frames.html');
+    await page.waitForTimeout(2000);
+    await page.locator('.col-xs-6 col-xs-offset-5')
+    })
