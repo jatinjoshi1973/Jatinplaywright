@@ -35,7 +35,7 @@ test('scrolling', async({page})=>{
 
 })
 
-test.only('Drag and Drop', async({page})=>{
+test('Drag and Drop', async({page})=>{
 
     await page.goto('https://demo.automationtesting.in/Static.html');
     await page.waitForTimeout(2000);
@@ -199,9 +199,41 @@ test('Shortcuts', async ({page}) => {
  await page.waitForTimeout(2000);
 })
 
-test.only('Drag and Drop', async({page})=>{
+test('scrolling board', async({page})=>{
 
-    await page.goto('https://demo.automationtesting.in/Frames.html');
+    await page.goto('https://www.myntra.com/');
     await page.waitForTimeout(2000);
-    await page.locator('.col-xs-6 col-xs-offset-5')
+    await page.keyboard.press('PageDown');
+    await page.waitForTimeout(2000);
+    await page.keyboard.press('PageUp');
+    await page.waitForTimeout(2000);
+    await page.locator('.desktop-searchBar').type('Computer');
+    await page.waitForTimeout(2000);
     })
+
+test.only('Keyboard', async({page})=>{
+
+    await page.goto('https://demowebshop.tricentis.com');
+    await page.waitForTimeout(1000);
+    await page.keyboard.press('Tab');
+    await page.waitForTimeout(1000);
+    await page.keyboard.press('Tab');
+    await page.waitForTimeout(1000);
+    await page.keyboard.press('Tab');
+    await page.waitForTimeout(1000);
+    await page.keyboard.press('Tab');
+    await page.waitForTimeout(1000);
+    await page.keyboard.press('Tab');
+    await page.waitForTimeout(1000);
+    await page.keyboard.press('Tab');
+    await page.waitForTimeout(1000);
+    await page.keyboard.type('Computer');
+    await page.waitForTimeout(1000);
+    await page.keyboard.press('ArrowDown');
+    await page.waitForTimeout(1000);
+    await page.keyboard.press('ArrowDown');
+    await page.waitForTimeout(1000);
+    await page.keyboard.press('Enter');
+    await page.waitForTimeout(3000);
+    })
+
