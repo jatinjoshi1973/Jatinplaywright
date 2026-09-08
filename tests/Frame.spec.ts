@@ -2,7 +2,6 @@
 import {test, expect, Locator, Frame} from "@playwright/test"
 
 test('Single iFrame', async({page})=>{
-
     await page.goto('https://demo.automationtesting.in/Frames.html');
     await page.waitForTimeout(2000);
     //By using Name value
@@ -13,17 +12,13 @@ test('Single iFrame', async({page})=>{
     // const singleframe = page.frame({url:'https://demo.automationtesting.in/SingleFrame.html'});
     // singleframe?.locator("//input[@type='text']").fill('jatin');
     // await page.waitForTimeout(3000);
-
      //by using framelocator
      const singleframe=page.frameLocator('#singleframe');
      singleframe?.locator("//input[@type='text']").fill('jatin');
      await page.waitForTimeout(3000);
-
-
     })
 
     test.only('Nested iframe', async({page})=>{
-
     await page.goto('https://demo.automationtesting.in/Frames.html');
     await page.waitForTimeout(2000);
     await page.getByRole('link', {name: 'Iframe with in an Iframe'}).click();
@@ -36,10 +31,8 @@ test('Single iFrame', async({page})=>{
     }
     else{
         console.log('Outer frame is null');
-        
+      
     }
-    
+   
      await page.waitForTimeout(3000);
-
-
     })
