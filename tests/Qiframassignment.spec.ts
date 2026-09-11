@@ -1,4 +1,4 @@
-import { test, expect, Locator  } from '@playwright/test';
+import { test, expect, Locator, Frame  } from '@playwright/test';
 
 test ('Qifram', async ({page}) => {
     await page.goto('https://demoapps.qspiders.com/ui/frames?sublist=0')
@@ -38,7 +38,7 @@ test('Qiframnested', async ({ page }) => {
  
 });
 
-test.only('Qiframmulti', async ({ page }) => {
+test('Qiframmulti', async ({ page }) => {
   await page.goto('https://demoapps.qspiders.com/ui/frames/multiple?sublist=2');
   await page.waitForTimeout(2000);
   await page.getByRole('heading', {name: 'Sign Up'});
@@ -59,4 +59,34 @@ test.only('Qiframmulti', async ({ page }) => {
   await expect(page.getByText('Login successful!', { exact: true })).toBeVisible();
   await page.waitForTimeout(3000);
 });
+
+test.only('Qiframenestedmulti', async ({page}) => {
+  
+  await page.goto('https://demoapps.qspiders.com/ui/frames/nestedWithMultiple?sublist=3');
+  await page.waitForTimeout(2000);
+  const outerframe = page.frameLocator('.w-full.h-96');
+  const innerframeone = outerframe.locator('xpath=/html/body/div/div/section/div[1]').first();
+  await expect(innerframeone.getByText('Default Email', {exact: true})).toBeVisible();
+  await expect(innerframeone.getByText('Default Password', {exact: true})).toBeVisible();
+  await expect(innerframeone.getByText('Default Confirm Password', {exact: true})).toBeVisible();
+  await expect(innerframeone.getByText('Note : Please use the login credentials shown above', {exact: true})).toBeVisible();
+  await page.waitForTimeout(3000);
+ 
+  
+  const innerframtwo = outerframe.frameLocator('xpath=/html/body/div/div/section/div[2]/iframe');
+  await expect(innerframtwo.getByRole('heading', { name: 'Login', exact: true })).toBeVisible();
+  const inneremail = innerframtwo.frameLocator('xpath=/html/body/div/div/form/div[1]/iframe');
+  inneremail?.locator('#email').fill('Admin@gmail.com');
+  const innerpassword = innerframtwo.frameLocator('xpath=/html/body/div/div/form/div[2]/iframe');
+  innerpassword?.locator('#password').fill('Admin@1234');
+  const innerconfirm = innerframtwo.frameLocator('xpath=/html/body/div/div/form/div[3]/iframe');
+  innerconfirm?.locator('#confirm').fill('Admin@1234');
+  await page.waitForTimeout(2000);
+  const innerbutton = innerframtwo.frameLocator('xpath=/html/body/div/div/form/div[4]/iframe');
+  innerbutton?.getByRole('button', {name: 'Submit'}).click();
+  await expect(page.getByText('Login successful!', { exact: true })).toBeVisible();
+  await page.waitForTimeout(3000);
+  
+
+})
 
