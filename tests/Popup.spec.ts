@@ -1,4 +1,4 @@
-import {test, expect, Locator, Frame} from "@playwright/test"
+import {test, expect, Locator, Frame, chromium} from "@playwright/test"
 
 test('Simple alert', async({page})=>{
      page.on('dialog', async dialog => {
@@ -75,7 +75,7 @@ test('File upload', async({page})=>{
 
 })
 
-test.only('multipleFile upload', async({page})=>{
+test('multipleFile upload', async({page})=>{
     
      await page.goto('https://davidwalsh.name/demo/multiple-file-upload.php');
      const uploadelement:Locator = page.getByTestId('filesToUpload')
@@ -89,4 +89,36 @@ test.only('multipleFile upload', async({page})=>{
 
 })
 
+test('Single child', async({})=>{
+
+     const browser = await chromium.launch();
+     const context = await browser.newContext();
+     const page1 = await context.newPage();
+     await page1.goto('https://demowebshop.tricentis.com/');
+     await Promise.all([context.waitForEvent('page'), page1.getByRole('link', {name: 'Facebook'}).click()]);
+     const tabs = context.pages();
+     console.log('number pages present :', tabs.length); //2
+     console.log( tabs[0].url());//demo
+     console.log( tabs[1].url());//facebook
+     await tabs[1].locator('[aria-label="Create new account"]').click();
+     await page1.waitForTimeout(2000);
+     
+     
+})
+
+test.only('Multiple child', async({})=>{
+     const browser = await chromium.launch();
+     const context = await browser.newContext();
+     const page = await context.newPage();
+     await page.goto('https://demowebshop.tricentis.com/');
+     const links = await page.locator('[target="_blank"]').all();
+
+     for (const link of links) {
+          await Promise.all([context.waitForEvent('page'),link.click()]);
+     }
+     const childTabs=await context.pages();
+     console.log(childTabs.length);
+     
+     
+})
 
