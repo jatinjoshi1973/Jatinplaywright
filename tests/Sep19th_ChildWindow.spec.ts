@@ -20,15 +20,12 @@ test('Multiple tab child', async({context})=>{
      const page = await context.newPage();
      await page.goto('https://demowebshop.tricentis.com/');
      const links = await page.locator('[target="_blank"]').all();
-
      for (const link of links) {
           await Promise.all([context.waitForEvent('page'),link.click()]);
      }
-     
      const childpages = context.pages();
      for (const child of childpages){
           const actual_url = child.url();
-
           if (actual_url.includes('youtube')){
                await child.getByPlaceholder('Search').fill('naveen automation');
           }
@@ -39,7 +36,7 @@ test('Multiple tab child', async({context})=>{
      await page.waitForTimeout(5000);
 })
 
-test.only('new window', async({context})=>{
+test('new window', async({context})=>{
      const page = await context.newPage();
      await page.goto('https://demowebshop.tricentis.com/');
      await page.keyboard.press('PageDown');
@@ -58,6 +55,26 @@ test.only('new window', async({context})=>{
           console.log('window count :' , windows.length);//2         
      }
 }
-     
      await page.waitForTimeout(5000);
+})
+
+test.only('calendar with text field enabled', async({page})=> {
+     page.goto('https://demo.automationtesting.in/Datepicker.html');
+     //1st way
+     //await page.locator('#datepicker2').fill('20/05/2000');
+     //await page.waitForTimeout(3000);
+     //2nd way
+     // await page.locator('#datepicker2').click();
+     // await page.getByTitle('change the year').selectOption({label: '2020'});
+     // await page.getByTitle('change the month').selectOption({value: '5/2020'});
+     // await page.getByRole('link', {name: '23'}).click();
+     // await page.waitForTimeout(5000);
+
+     //select system date in calendar
+     let DateTime = new Date();
+     let today = DateTime.toLocaleDateString('en-US');
+     console.log(today);
+     await page.locator('#datepicker2').fill(today);
+     await page.waitForTimeout(5000);
+     
 })
