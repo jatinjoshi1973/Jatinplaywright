@@ -58,7 +58,7 @@ test('new window', async({context})=>{
      await page.waitForTimeout(5000);
 })
 
-test.only('calendar with text field enabled', async({page})=> {
+test('calendar with text field enabled', async({page})=> {
      page.goto('https://demo.automationtesting.in/Datepicker.html');
      //1st way
      //await page.locator('#datepicker2').fill('20/05/2000');
@@ -77,4 +77,18 @@ test.only('calendar with text field enabled', async({page})=> {
      await page.locator('#datepicker2').fill(today);
      await page.waitForTimeout(5000);
      
+})
+
+test.only('Disabled date picker', async({page})=>{
+
+     await page.goto('https://demo.automationtesting.in/Datepicker.html');
+     await page.locator('#datepicker1').click();
+     await page.getByTitle('Prev').click();
+     await page.waitForTimeout(2000)
+     await page.getByTitle('Next').click();
+     await page.waitForTimeout(2000);
+     await page.getByTitle('Next').click();
+     await page.waitForTimeout(2000);
+     await page.getByRole('link', {name: '21', exact: true}).click();
+     await page.waitForTimeout(3000);
 })
