@@ -22,15 +22,13 @@ test('Javascript pop up', async ({ page }) => {
 
 });
 
-test.only('Hidden division pop up', async({page})=> {
+test('Hidden division pop up', async({page})=> {
      await page.goto('https://demoapps.qspiders.com/ui/hidden?sublist=0', {waitUntil: 'domcontentloaded'});
      await page.waitForTimeout(2000);
      await expect(page).toHaveURL('https://demoapps.qspiders.com/ui/hidden?sublist=0');
      
      await page.getByRole('button', {name: 'Add Customer'}).click();
-     
      const popup = page.getByText('Create a customer', { exact: true });
-
      await expect(popup).toBeVisible();
     
         await page.locator('#customerName').fill('Jatin')
@@ -41,6 +39,28 @@ test.only('Hidden division pop up', async({page})=> {
         await page.getByRole('button', {name: 'Submit'}).click();
         await page.waitForTimeout(5000);
    
+})
+
+test('new window', async({context})=>{
+    const page = await context.newPage();
+    await page.goto('https://demoapps.qspiders.com/ui/browser?sublist=0', {waitUntil : 'domcontentloaded'})
+    await page.waitForTimeout(2000)
+    await expect(page).toHaveURL('https://demoapps.qspiders.com/ui/browser?sublist=0');
+    await page.locator('button').filter({ hasText: 'view more' }).first().click();
+    await page.waitForTimeout(2000)
+    await page.locator('button').filter({ hasText: 'view more' }).last().click();
+    await page.waitForTimeout(2000)
+})
+
+test.only('new Tab', async({context})=>{
+    const page = await context.newPage();
+    await page.goto('https://demoapps.qspiders.com/ui/browser/newTab?sublist=1', {waitUntil : 'domcontentloaded'})
+    await page.waitForTimeout(2000)
+    await expect(page).toHaveURL('https://demoapps.qspiders.com/ui/browser/newTab?sublist=1');
+    await page.locator('button').filter({ hasText: 'view more' }).first().click();
+    await page.waitForTimeout(2000)
+    await page.locator('button').filter({ hasText: 'view more' }).last().click();
+    await page.waitForTimeout(2000)
 })
     
     
