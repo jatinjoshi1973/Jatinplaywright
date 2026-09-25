@@ -64,9 +64,25 @@ test.only('new Tab', async({context})=>{
     await page.waitForTimeout(2000)
     await expect(page).toHaveURL('https://demoapps.qspiders.com/ui/browser/newTab?sublist=1');
     await page.locator('button').filter({ hasText: 'view more' }).first().click();
+   const [childPage] = await Promise.all([
+        context.waitForEvent('page'),
+        page.goto('https://demoapps.qspiders.com/ui/browser/product/1')
+    ]);
+    await childPage.waitForLoadState('domcontentloaded');
+    await childPage.getByRole('button', { name: 'Add to Cart' }).click();
+    console.log(await childPage.url());
     await page.waitForTimeout(2000)
+    await page.goto('https://demoapps.qspiders.com/ui/browser/newTab?sublist=1', {waitUntil : 'domcontentloaded'})
+    await page.waitForTimeout(2000)
+    await expect(page).toHaveURL('https://demoapps.qspiders.com/ui/browser/newTab?sublist=1');
     await page.locator('button').filter({ hasText: 'view more' }).last().click();
-    await page.waitForTimeout(2000)
+    const [childPage1] = await Promise.all([
+        context.waitForEvent('page'),
+        page.goto('https://demoapps.qspiders.com/ui/browser/product/2')
+    ]);
+    await childPage1.waitForLoadState('domcontentloaded');
+    await childPage1.getByRole('button', { name: 'Add to Cart' }).click();
+    console.log(await childPage1.url());
+    await page.waitForTimeout(5000)
 })
-    
-    
+
