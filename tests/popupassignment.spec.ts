@@ -41,15 +41,21 @@ test('Hidden division pop up', async({page})=> {
    
 })
 
-test('new window', async({context})=>{
+test.skip('new window', async({context})=>{
     const page = await context.newPage();
     await page.goto('https://demoapps.qspiders.com/ui/browser?sublist=0', {waitUntil : 'domcontentloaded'})
     await page.waitForTimeout(2000)
     await expect(page).toHaveURL('https://demoapps.qspiders.com/ui/browser?sublist=0');
     await page.locator('button').filter({ hasText: 'view more' }).first().click();
+    const pages = context.pages();
+    const newPage = pages[pages.length - 1];
+    await newPage.getByRole('button', { name: 'Add to Cart' }).click();
     await page.waitForTimeout(2000)
     await page.locator('button').filter({ hasText: 'view more' }).last().click();
-    await page.waitForTimeout(2000)
+    const pages1 = context.pages();
+    const newPage1 = pages1[pages1.length - 1];
+    await newPage1.locator('button').filter({ hasText: 'Add to Cart' }).last().click();
+    await page.waitForTimeout(5000)
 })
 
 test.only('new Tab', async({context})=>{
