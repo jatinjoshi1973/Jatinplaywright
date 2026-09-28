@@ -86,3 +86,48 @@ test.only('new Tab', async({context})=>{
     await page.waitForTimeout(5000)
 })
 
+test('multiple window', async({context})=>{
+    const page = await context.newPage();
+    await page.goto('https://demoapps.qspiders.com/ui/browser/multipleWindow?sublist=2', {waitUntil : 'domcontentloaded'})
+    await page.waitForTimeout(2000)
+    await expect(page).toHaveURL('https://demoapps.qspiders.com/ui/browser/multipleWindow?sublist=2');
+    await page.locator('button').filter({ hasText: 'Shop Now' }).click();
+    const pages = context.pages();
+    const newPage = pages[pages.length - 1];
+    await newPage.getByRole('button', { name: 'Add to Cart' }).click();
+    await page.waitForTimeout(5000)
+})
+
+test('multiple Tab', async({context})=>{
+    const page = await context.newPage();
+    await page.goto('https://demoapps.qspiders.com/ui/browser/multipleTabs?sublist=3', {waitUntil : 'domcontentloaded'})
+    await page.waitForTimeout(3000)
+    await expect(page).toHaveURL('https://demoapps.qspiders.com/ui/browser/multipleTabs?sublist=3');
+    await page.locator('button').filter({ hasText: 'Shop Now' }).click();
+   const [childPage] = await Promise.all([
+        context.waitForEvent('page'),
+        page.goto('https://demoapps.qspiders.com/ui/browser/product/1')
+    ]);
+    await childPage.waitForLoadState('domcontentloaded');
+    await childPage.getByRole('button', { name: 'Add to Cart' }).click();
+    console.log(await childPage.url());
+    const [childPage1] = await Promise.all([
+        context.waitForEvent('page'),
+        page.goto('https://demoapps.qspiders.com/ui/browser/product/2')
+        
+    ]);
+    await childPage1.waitForLoadState('domcontentloaded');
+    await childPage1.getByRole('button', { name: 'Add to Cart' }).click();
+    console.log(await childPage1.url());
+    const [childPage3] = await Promise.all([
+        context.waitForEvent('page'),
+        page.goto('https://demoapps.qspiders.com/ui/browser/product/3')
+
+    ]);
+    await childPage3.waitForLoadState('domcontentloaded');
+    await childPage3.getByRole('button', { name: 'Add to Cart' }).click();
+    console.log(await childPage3.url());
+      await page.waitForTimeout(15000)
+})
+
+
