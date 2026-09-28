@@ -58,7 +58,7 @@ test.skip('new window', async({context})=>{
     await page.waitForTimeout(5000)
 })
 
-test.only('new Tab', async({context})=>{
+test('new Tab', async({context})=>{
     const page = await context.newPage();
     await page.goto('https://demoapps.qspiders.com/ui/browser/newTab?sublist=1', {waitUntil : 'domcontentloaded'})
     await page.waitForTimeout(2000)
@@ -98,36 +98,37 @@ test('multiple window', async({context})=>{
     await page.waitForTimeout(5000)
 })
 
-test('multiple Tab', async({context})=>{
+
+test.only('Multiple Child Tabs - Add to Cart', async ({ context }) => {
+
     const page = await context.newPage();
     await page.goto('https://demoapps.qspiders.com/ui/browser/multipleTabs?sublist=3', {waitUntil : 'domcontentloaded'})
     await page.waitForTimeout(3000)
     await expect(page).toHaveURL('https://demoapps.qspiders.com/ui/browser/multipleTabs?sublist=3');
     await page.locator('button').filter({ hasText: 'Shop Now' }).click();
-   const [childPage] = await Promise.all([
-        context.waitForEvent('page'),
-        page.goto('https://demoapps.qspiders.com/ui/browser/product/1')
-    ]);
-    await childPage.waitForLoadState('domcontentloaded');
-    await childPage.getByRole('button', { name: 'Add to Cart' }).click();
-    console.log(await childPage.url());
-    const [childPage1] = await Promise.all([
-        context.waitForEvent('page'),
-        page.goto('https://demoapps.qspiders.com/ui/browser/product/2')
-        
-    ]);
-    await childPage1.waitForLoadState('domcontentloaded');
-    await childPage1.getByRole('button', { name: 'Add to Cart' }).click();
-    console.log(await childPage1.url());
-    const [childPage3] = await Promise.all([
-        context.waitForEvent('page'),
-        page.goto('https://demoapps.qspiders.com/ui/browser/product/3')
+    await page.waitForTimeout(3000)
+    
+    // Wait for 3 child tabs
+    await expect.poll(() => context.pages().length).toBe(4);
 
-    ]);
-    await childPage3.waitForLoadState('domcontentloaded');
-    await childPage3.getByRole('button', { name: 'Add to Cart' }).click();
-    console.log(await childPage3.url());
-      await page.waitForTimeout(15000)
-})
+    // Get all pages
+    const pages = context.pages();
 
+    console.log('Number of tabs:', pages.length);
 
+    // Skip parent page and process the 3 child tabs
+    for (let i = 1; i < pages.length; i++) {
+
+        const childPage = pages[i];
+
+        await childPage.waitForLoadState('domcontentloaded');
+
+        console.log(`Child Tab ${i} URL:`, await childPage.url());
+
+        await childPage.getByRole('button', {name: 'Add to Cart'}).click();
+
+        console.log(`Add to Cart clicked in Child Tab ${i}`);
+    }
+
+    await page.waitForTimeout(10000)
+});
