@@ -12,6 +12,7 @@ test('Multiple child', async({})=>{
      }
      const childTabs=await context.pages();
      console.log(childTabs.length);
+     await page.waitForTimeout(15000)
      
 })
 
@@ -33,10 +34,10 @@ test('Multiple tab child', async({context})=>{
                await child.locator('[aria-label="Create new account"]').click();
           }
      }
-     await page.waitForTimeout(5000);
+     await page.waitForTimeout(10000);
 })
 
-test('new window', async({context})=>{
+test.only('new window', async({context})=>{
      const page = await context.newPage();
      await page.goto('https://demowebshop.tricentis.com/');
      await page.keyboard.press('PageDown');
@@ -55,7 +56,7 @@ test('new window', async({context})=>{
           console.log('window count :' , windows.length);//2         
      }
 }
-     await page.waitForTimeout(5000);
+     await page.waitForTimeout(10000);
 })
 
 test('calendar with text field enabled', async({page})=> {
@@ -79,7 +80,7 @@ test('calendar with text field enabled', async({page})=> {
      
 })
 
-test.only('Disabled date picker', async({page})=>{
+test('Disabled date picker', async({page})=>{
 
      await page.goto('https://demo.automationtesting.in/Datepicker.html');
      await page.locator('#datepicker1').click();
