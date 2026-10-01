@@ -1,6 +1,6 @@
 import {chromium, Locator, test} from "@playwright/test"
 
-test('Multiple child', async({})=>{
+test.skip('Multiple child', async({})=>{
      const browser = await chromium.launch();
      const context = await browser.newContext();
      const page = await context.newPage();
@@ -12,6 +12,12 @@ test('Multiple child', async({})=>{
      }
      const childTabs=await context.pages();
      console.log(childTabs.length);
+     console.log(childTabs[0].url());
+     console.log(childTabs[1].url());
+     console.log(childTabs[2].url());
+     console.log(childTabs[3].url());
+     console.log(childTabs[4].url());
+     
      await page.waitForTimeout(15000)
      
 })
@@ -47,24 +53,35 @@ test.only('new window', async({context})=>{
      const facebook:Locator=page.getByRole('link', {name :'Facebook'});
      await page.keyboard.down('Shift');
      await Promise.all([context.waitForEvent('page'),facebook.click()]);
+     const youtube:Locator=page.getByRole('link', {name :'Youtube'});
+     await page.keyboard.down('Shift');
+     await Promise.all([context.waitForEvent('page'),youtube.click()]);
      const windows = context.pages();
-     console.log('window count :' , windows.length);//2
+     console.log('window count :' , windows.length);//3
      for (const window of windows) {
          const actual_url=window.url();
          if (actual_url.includes('facebook')){
           await window.locator('[aria-label="Create new account"]').click();
-          console.log('window count :' , windows.length);//2         
+          console.log('window count :' , windows.length);//3
+                 
      }
-}
-     await page.waitForTimeout(10000);
-})
+     else if (actual_url.includes('youtube')){
+               await window.getByPlaceholder('Search').fill('naveen automation');
+               console.log('window count :' , windows.length);//3
+          }
 
-test('calendar with text field enabled', async({page})=> {
+     }
+     //await page.waitForTimeout(15000)
+})
+     
+
+
+test.skip('calendar with text field enabled', async({page})=> {
      page.goto('https://demo.automationtesting.in/Datepicker.html');
-     //1st way
-     //await page.locator('#datepicker2').fill('20/05/2000');
-     //await page.waitForTimeout(3000);
-     //2nd way
+     // //1st way
+     // await page.locator('#datepicker2').fill('20/05/2000');
+     // await page.waitForTimeout(3000);
+     // //2nd way
      // await page.locator('#datepicker2').click();
      // await page.getByTitle('change the year').selectOption({label: '2020'});
      // await page.getByTitle('change the month').selectOption({value: '5/2020'});

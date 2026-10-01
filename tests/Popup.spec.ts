@@ -89,7 +89,7 @@ test('multipleFile upload', async({page})=>{
 
 })
 
-test('Single child', async({})=>{
+test.only('Single child', async({})=>{
 
      const browser = await chromium.launch();
      const context = await browser.newContext();
