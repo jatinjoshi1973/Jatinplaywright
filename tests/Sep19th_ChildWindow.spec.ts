@@ -43,7 +43,7 @@ test('Multiple tab child', async({context})=>{
      await page.waitForTimeout(10000);
 })
 
-test.only('new window', async({context})=>{
+test('new window', async({context})=>{
      const page = await context.newPage();
      await page.goto('https://demowebshop.tricentis.com/');
      await page.keyboard.press('PageDown');
@@ -109,4 +109,36 @@ test('Disabled date picker', async({page})=>{
      await page.waitForTimeout(2000);
      await page.getByRole('link', {name: '21', exact: true}).click();
      await page.waitForTimeout(3000);
+})
+
+test.only('Calendar with out textfield', async({page})=> {
+     //todays date
+     let datetime = new Date();
+     let today = datetime.toLocaleDateString('en-Gb');
+     //pluse date
+     let plusDT = new Date ();
+     plusDT.setDate(plusDT.getDate()+120);
+     let pluseDate = plusDT.toLocaleDateString('en-Gb');
+     console.log(today);
+     console.log('=============');
+     console.log(pluseDate);
+     await page.goto("https://www.easemytrip.com");
+     await page.locator('#ddate').click();
+     await page.locator("//li[contains(@id,'"+today+"')]").click();
+     await page.locator('#rtag').click();
+     for(;;){
+          let calheader = page.locator('[class="month2"]').first();
+          let text= await calheader.textContent();
+          if (text?.includes('Jan 2027')){
+               await page.locator("//li[contains(@id,'"+pluseDate+"')]").click();
+               break;
+          }
+          else{
+          await page.locator('#img2Nex').click();
+          }
+     }
+     await page.waitForTimeout(3000)
+     
+     
+     
 })
