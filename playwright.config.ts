@@ -25,6 +25,8 @@ export default defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
+     screenshot: 'only-on-failure', //by jatin
+
     /* Base URL to use in actions like `await page.goto('')`. */
      //baseURL: 'http://localhost:3000',
 
@@ -32,7 +34,7 @@ export default defineConfig({
     trace: 'on-first-retry',
     
     // customized test id
-    testIdAttribute:'id',
+    testIdAttribute:'id', // by jatin
     
     // Maximize the browser
     viewport: null,
