@@ -31,7 +31,7 @@ test('Element screenshot', async({page})=> {
     await page.waitForTimeout(3000)
 })    
 
-test.only('Screen shot taken on failure', async({page})=> {
+test('Screen shot taken on failure and video', async({page})=> {
      
 
     await page.goto('https://demowebshop.tricentis.com/')
@@ -42,6 +42,21 @@ test.only('Screen shot taken on failure', async({page})=> {
     await expect(page).toHaveURL('https://demowebshop.tricentis.com/')
     await page.waitForTimeout(3000);
 
+
+
+})
+
+test.only('Trace viewer by steps', async({context,page})=> {
+     await context.tracing.start({screenshots:true, snapshots:true});
+
+    await page.goto('https://demowebshop.tricentis.com/')
+    await page.getByRole('link', {name: 'Log in'}).click();
+    await page.getByRole('textbox', {name: 'Email'}).fill('jatinhari@yahoo.com');
+    await page.getByLabel('Password:').fill('123');
+    await page.locator('input.button-1.login-button').click();
+    await expect(page).toHaveURL('https://demowebshop.tricentis.com/')
+    await page.waitForTimeout(3000);
+    await context.tracing.stop({path:'E:/Q-spiders-JS/Jatinplaywright/tests/Resourcefile/trace.zip'});
 
 
 })
