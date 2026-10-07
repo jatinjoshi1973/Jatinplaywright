@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('Network', async({page})=> {
+test('Retry Network', async({page})=> {
      
 
     await page.goto('https://demowebshop.tricentis.com/');
