@@ -37,7 +37,7 @@ test('Sort column', async({page})=>{
     await page.waitForTimeout(3000);
 })
 
-test.only('Table pagination', async({page})=>{
+test.skip('Table pagination', async({page})=>{
     
     await page.goto('https://demoapps.qspiders.com/ui/table/tablePagination');
     await page.waitForTimeout(3000);
@@ -60,5 +60,20 @@ test('Table with check box', async({page})=>{
     await page.getByRole('button', {name: 'Remove Checked Rows'}).click();
     await page.getByRole('button', { name: 'yes' }).click();
     await page.waitForTimeout(3000);
+})
+
+test.only('multiple table', async({page})=> {
+
+    await page.goto('https://demoapps.qspiders.com/ui/table/multipleTable');
+    await page.waitForTimeout(3000);
+    const productclick = await page.locator('xpath = //*[@id="demoUI"]/main/section/article[1]/aside/div/div[1]/table/tbody/tr')
+    let product = await productclick.count();
+    console.log(product);
+    for(let i=0;i<product;i++){
+        await productclick.nth(i).click();
+        await page.waitForTimeout(3000);
+    }
+    
+
 })
 
