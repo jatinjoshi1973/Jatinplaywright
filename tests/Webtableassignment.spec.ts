@@ -41,11 +41,24 @@ test.only('Table pagination', async({page})=>{
     
     await page.goto('https://demoapps.qspiders.com/ui/table/tablePagination');
     await page.waitForTimeout(3000);
-    await page.locator('li:has-text("1")').click();
-    await page.waitForTimeout(5000);
-    await page.locator('li:has-text("2")').click();
-    await page.waitForTimeout(5000);
-    await page.locator('li:has-text("3")').click();
-    await page.waitForTimeout(5000);
+    const pagination = page.locator('xpath = //*[@id="demoUI"]/main/section/article[1]/aside/div/div[2]/ul/li');
+    let paginationcount = await pagination.count();
+    console.log(paginationcount);
+    for(let i=0;i<paginationcount;i++){
+       await pagination.nth(i).click();
+       await page.waitForTimeout(5000);
+    }
+ })
+
+test('Table with check box', async({page})=>{
+
+    await page.goto('https://demoapps.qspiders.com/ui/table/tableWithCheck');
+    await page.waitForTimeout(3000);
+    await page.locator(`//tr[td[contains(., 'Levis Shirt')]]//input[@type='checkbox']`).click();
+    await page.locator(`//tr[td[contains(., 'APPLEIPhone')]]//input[@type='checkbox']`).click();
+    await page.waitForTimeout(3000);
+    await page.getByRole('button', {name: 'Remove Checked Rows'}).click();
+    await page.getByRole('button', { name: 'yes' }).click();
+    await page.waitForTimeout(3000);
 })
 
