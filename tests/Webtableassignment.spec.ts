@@ -73,7 +73,6 @@ test.only('multiple table', async({page})=> {
         await productclick.nth(i).click();
         await page.waitForTimeout(3000);
     }
-    
 
 })
 
