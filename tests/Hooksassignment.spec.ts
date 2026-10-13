@@ -10,7 +10,7 @@ test.beforeAll('Hooks Before All', async({browser})=> {
 })
 
 test.beforeEach('before', async({},testInfo:TestInfo)=> {
-    if(testInfo.title=="TC_09"){
+    if(testInfo.title=="TC_08"&&"TC_09"){
     await page.getByRole('link', { name: 'Log in' }).click();
     await page.getByRole('textbox', { name: 'Email:' }).fill('jatinhari@yahoo.com')
     await page.getByLabel('Password:').fill('123456');
@@ -23,7 +23,7 @@ test.beforeEach('before', async({},testInfo:TestInfo)=> {
 })
 
 test.afterEach('after', async({},testInfo:TestInfo)=>{
-    if(testInfo.title=="TC_09"){
+    if(testInfo.title=="TC_08"&&"TC_09"){
       await page.getByRole('link', {name: 'Log out'}).click();
     console.log('AfterEach');  
     } 
@@ -89,17 +89,17 @@ test('TC_07', async({})=> {
 })
 
 test('TC_08', async({})=> {
-    await page.getByRole('link', { name: 'Log in' }).click();
-    await page.getByRole('textbox', { name: 'Email:' }).fill('jatinhari@yahoo.com');
-    await page.getByLabel('Password:').fill('123456');
-    await page.locator('input.button-1.login-button').click();
-    await page.waitForTimeout(3000);
+    // await page.getByRole('link', { name: 'Log in' }).click();
+    // await page.getByRole('textbox', { name: 'Email:' }).fill('jatinhari@yahoo.com');
+    // await page.getByLabel('Password:').fill('123456');
+    // await page.locator('input.button-1.login-button').click();
+    // await page.waitForTimeout(3000);
     expect(await page.getByRole('link', { name: 'Log out' })).toBeVisible();
     console.log('TC_08 is passed: Login is successful and Logout link display');
     
 })
 
-test.only('TC_09', async({})=> {
+test('TC_09', async({})=> {
 
     await page.locator('#small-searchterms').fill('14.1 - INCH Laptop')
     await page.locator('input[type="submit"]').click
