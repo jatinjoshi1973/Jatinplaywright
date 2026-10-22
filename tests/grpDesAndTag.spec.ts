@@ -6,7 +6,7 @@ test.describe('register', async () => {
  
     })
  
-    test("test2", { tag: '@smoke' }, async () => {
+    test("test2", { tag: '@smoke','@sanity' }, async () => {
         console.log("This is smoke test");
  
     })

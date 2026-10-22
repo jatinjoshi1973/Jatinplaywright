@@ -2,6 +2,7 @@ import { test } from "@playwright/test";
 //make this file paraller execution.
 // if not used as per config file it will use.
 // if used parellel then multiple workes will be created & test executes fast
+// from terminal you can execute workers 5
 test.describe.configure({ mode: 'parallel' })
  
 test('test1', async ({ page }) => {

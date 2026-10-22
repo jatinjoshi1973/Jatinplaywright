@@ -1,6 +1,6 @@
 import { test } from "@playwright/test";
  
-test("test1", { tag: '@smoke' }, async () => {
+test("test1", { tag: ['@smoke', '@sanity'] }, async () => {
     console.log("This is smoke test");
  
 })
@@ -20,7 +20,7 @@ test("test4", { tag: '@fun' }, async () => {
  
 })
  
-test("test5", { tag: '@sanity' }, async () => {
+test("test5", { tag: ['@sanity','@smoke'] }, async () => {
     console.log("This is Sanity test");
  
 })
@@ -39,3 +39,9 @@ test("test5", { tag: '@sanity' }, async () => {
  
 //
 //npx playwright test groupByTags.spec.ts --grep-invert "(?=.*@smoke)(?=.*@sanity)"
+
+//npx playwright test GroupByTags.spec.ts --grep "register|@smoke"
+
+//--grep-invert "(?=.*@smoke)(?=.*@sanity)"
+ 
+//--grep "(?=.*@smoke)(?=.*@sanity)"
