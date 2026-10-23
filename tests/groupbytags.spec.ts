@@ -5,12 +5,12 @@ test("test1", { tag: ['@smoke', '@sanity'] }, async () => {
  
 })
  
-test("test2", { tag: '@smoke' }, async () => {
+test("test2", { tag: ['@smoke', '@reg'] }, async () => {
     console.log("This is smoke test");
  
 })
  
-test("test3", { tag: '@reg' }, async () => {
+test("test3", { tag: ['@reg', '@fun'] }, async () => {
     console.log("This is Regression test");
  
 })
@@ -40,7 +40,7 @@ test("test5", { tag: ['@sanity','@smoke'] }, async () => {
 //
 //npx playwright test groupByTags.spec.ts --grep-invert "(?=.*@smoke)(?=.*@sanity)"
 
-//npx playwright test GroupByTags.spec.ts --grep "register|@smoke"
+
 
 //--grep-invert "(?=.*@smoke)(?=.*@sanity)"
  
