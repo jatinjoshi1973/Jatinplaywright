@@ -1,0 +1,22 @@
+[
+
+     {"username":"jatin123@test.com",
+    "password":"admin@123",
+    "validity":"valid"},
+
+     {"username":"jatin345@test.com",
+    "password":"admin@123",
+    "validity":"valid"},
+
+     {"username":"jatintest.com",
+    "password":"admin@123",
+    "validity":"invalid"},
+
+     {"username":"",
+    "password":"",
+    "validity":"invalid"}
+
+
+]
+   
+
