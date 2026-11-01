@@ -1,0 +1,45 @@
+<testsuites id="" name="" tests="3" failures="1" skipped="0" errors="0" time="17.543065">
+<testsuite name="InbuiltReports.spec.ts" timestamp="2026-11-01T06:37:37.473Z" hostname="chromium" tests="3" failures="1" skipped="0" time="13.698" errors="0">
+<testcase name="test1" classname="InbuiltReports.spec.ts" time="6.713">
+</testcase>
+<testcase name="test2" classname="InbuiltReports.spec.ts" time="3.553">
+<properties>
+<property name="fail" value="">
+</property>
+</properties>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\InbuiltReports-test2-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|test-results\InbuiltReports-test2-chromium\video.webm]]
+
+[[ATTACHMENT|test-results\InbuiltReports-test2-chromium\trace.zip]]
+]]>
+</system-out>
+<failure message="InbuiltReports.spec.ts:8:6 test2" type="FAILURE">
+<![CDATA[  [chromium] › InbuiltReports.spec.ts:8:6 › test2 ──────────────────────────────────────────────────
+
+    Expected to fail, but passed.
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\InbuiltReports-test2-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\test-results\InbuiltReports-test2-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\test-results\InbuiltReports-test2-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\test-results\InbuiltReports-test2-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="test3" classname="InbuiltReports.spec.ts" time="3.432">
+</testcase>
+</testsuite>
+</testsuites>

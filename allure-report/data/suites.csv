@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","4575","test3","chromium","2026-11-01","failed","2026-11-01","","InbuiltReports.spec.ts","",""
+"","6492","test1","chromium","2026-11-01","passed","2026-11-01","","InbuiltReports.spec.ts","",""
+"","4214","test2","chromium","2026-11-01","failed","2026-11-01","","InbuiltReports.spec.ts","",""
